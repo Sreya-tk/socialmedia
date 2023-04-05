@@ -1,0 +1,50 @@
+{% extends 'nav.html' %}
+{% block nav %}
+{% load static %}
+<h4 class="bg-info">Profile</h4>
+{% if messages %}
+    {% for i in messages %}
+    {% if i.levek == DEFAULT_MESSADE_LEVELS.SUCCUSS %}
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{i}}
+    </div>
+    {%endif%}
+    {% if i.level == DEFAULT_MESSADE_LEVELS.ERROR %}
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{i}}
+    </div>
+    {%endif%}
+    {%endfor%}
+    {%endif%} 
+<div class="row">
+    <div class="col-10"><div class="card" style="width: 100%;">
+        <img class="card-img-top" src="{{request.user.bio_user.profile_pic.url}}" alt="Card image cap" height="300px">
+        <div class="card-body">
+          <h5 class="card-title">{{request.user.first_name}} {{request.user.lastt_name}}</h5>
+          
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status:{{request.user.bio_user.status}}</li>
+          <li class="list-group-item">Date of Birth:{{request.user.bio_user.dob}}</li>
+          <li class="list-group-item">Phone:{{request.user.bio_user.phone}}</li>
+          <li class="list-group-item">Email:{{request.user.email}}</li>
+        </ul>
+        <!-- <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div> -->
+      </div></div>
+    <div class="col-2" style="height: 500px;border-left: 2px solid black;">
+        {% if request.user.bio_user %}
+            <a href="{%url 'ebio' request.user.bio_user.id %}" class="btn btn-warning">Edit Bio</a><br><br>
+            <a href="{% url 'cp' %}" class="btn btn-warning">Change Password</a><br>
+            {%else%}
+        
+        
+        <a href="{%url 'bio' %}" class="btn btn-warning">AddBio</a>
+        {%endif%}
+    </div>
+</div>    
+{%endblock nav%}
